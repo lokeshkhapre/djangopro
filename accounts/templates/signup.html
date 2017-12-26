@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block javascript %}
+<script>
+  $$(document).ready(function(){
+     $("#form").submit();
+});
+    $.ajax({
+      url:'/signup',
+      data:{
+        'username' : username
+      },
+      data: $('form').serialize(),
+      type: 'GET',
+      success: function (response){
+        if (data.is_taken) {
+          console.log(response);
+        },
+        error: function(error){
+          console.log(error);
+        }
+        
+      }
+    });
+  
+</script>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+{% endblock %}
